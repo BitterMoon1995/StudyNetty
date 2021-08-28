@@ -1,1 +1,6 @@
-phase1  HelloWorld
+section1  Hello
+客户端/服务端单向通信演示，包含分长连接客户端与短连接客户端
+
+section2 EventLoop
+a 三大基本操作
+b 改进：双eventLoopGroup

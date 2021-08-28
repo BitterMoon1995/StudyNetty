@@ -1,4 +1,4 @@
-package com.wstx.studynetty.phase1;
+package com.wstx.studynetty.section1;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -14,7 +14,9 @@ import java.net.InetSocketAddress;
 
 public class HelloClient {
     @Test
-    public void ali() throws InterruptedException {
+    //长连接客户端。
+    //建立连接后，向服务端发10次消息，然后一直阻塞，需手动关闭。
+    public void longConnect() throws InterruptedException {
         NioEventLoopGroup eventExecutors = new NioEventLoopGroup();
         try {
             //创建bootstrap对象，配置参数
@@ -28,7 +30,7 @@ public class HelloClient {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             //添加客户端通道的处理器
-                            ch.pipeline().addLast(new ClientHandler());
+                            ch.pipeline().addLast(new ClientHandler(),new StringEncoder());
                         }
                     });
             System.out.println("客户端准备就绪，随时可以起飞~");
@@ -42,8 +44,9 @@ public class HelloClient {
         }
     }
 
+    //短连接客户端。向客户端建立10次连接，每次连接发送一次数据。
     @Test
-    public void heima() throws InterruptedException {
+    public void shortConnects() throws InterruptedException {
         //配置
         Bootstrap bootstrap = new Bootstrap()
                 .group(new NioEventLoopGroup())
@@ -52,21 +55,28 @@ public class HelloClient {
                     @Override
                     //在连接建立后被调用
                     protected void initChannel(NioSocketChannel ch) throws Exception {
-                        System.out.println("建立连接后调用一次initChannel");
+                        System.out.println("客户端建立连接后调用一次initChannel");
                         ch.pipeline().addLast(new StringEncoder());
                     }
                 });
-        //连接
-        Channel channel = bootstrap
-                .connect(new InetSocketAddress("127.0.0.1", 9966))
-                //同步（阻塞），直到.connect才.channel。直到连接建立，才获取channel
-                .sync()
-                //代表建立连接后，客户端与服务器之间的socket channel
-                .channel();
-        //发消息
-        channel
-                .writeAndFlush("我是黑人")
-                //不阻塞，发完就return。可设置延迟
+        for (int i = 0; i < 10; i++) {
+            Thread.sleep(500);
+            //连接
+            Channel channel = bootstrap
+                    .connect(new InetSocketAddress("127.0.0.1", 9966))
+                    //sync()：直到前面的方法返回，才会执行后面的方法，否则阻塞当前线程。
+                    //即直到连接建立，才获取channel
+                    .sync()
+                    //代表建立连接后，客户端与务器之间的socket channel
+                    .channel();
+            System.out.println(channel);
+            //发消息
+            channel
+                    .writeAndFlush("我是黑人")
+//                    .sync();
+            //不阻塞，发完就return。可设置延迟
                 .await();
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-package com.wstx.studynetty.phase1;
+package com.wstx.studynetty.section1;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -10,8 +10,11 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        //发送消息到服务端
-        ctx.writeAndFlush(Unpooled.copiedBuffer("nigger死妈了", CharsetUtil.UTF_8));
+        for (int i = 0; i < 10; i++) {
+            //发送消息到服务端
+            ctx.writeAndFlush(Unpooled.copiedBuffer("nigger死妈了", CharsetUtil.UTF_8));
+            Thread.sleep(500);
+        }
     }
 
     @Override
