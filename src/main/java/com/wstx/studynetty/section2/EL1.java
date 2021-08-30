@@ -13,6 +13,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
+//netty eventLoop的本质是单线程线程池
 public class EL1 {
     //创建事件循环组
     @Test

@@ -17,12 +17,12 @@ public class HelloClient {
     //长连接客户端。
     //建立连接后，向服务端发10次消息，然后一直阻塞，需手动关闭。
     public void longConnect() throws InterruptedException {
-        NioEventLoopGroup eventExecutors = new NioEventLoopGroup();
+        NioEventLoopGroup nioEventLoopGroup = new NioEventLoopGroup();
         try {
             //创建bootstrap对象，配置参数
             Bootstrap bootstrap = new Bootstrap();
             //设置线程组
-            bootstrap.group(eventExecutors)
+            bootstrap.group(nioEventLoopGroup)
                     //设置客户端的通道实现类型
                     .channel(NioSocketChannel.class)
                     //使用匿名内部类初始化通道
@@ -40,7 +40,7 @@ public class HelloClient {
             channelFuture.channel().closeFuture().sync();
         } finally {
             //关闭线程组
-            eventExecutors.shutdownGracefully();
+            nioEventLoopGroup.shutdownGracefully();
         }
     }
 
@@ -74,9 +74,26 @@ public class HelloClient {
             channel
                     .writeAndFlush("我是黑人")
 //                    .sync();
-            //不阻塞，发完就return。可设置延迟
+            //在测试方法中要加一个sync或await。不阻塞，发完就return。可设置延迟
                 .await();
         }
 
+    }
+
+    @Test
+    public void normal() throws InterruptedException {
+        NioEventLoopGroup group = new NioEventLoopGroup();
+        new Bootstrap()
+                .group(group)
+                .channel(NioSocketChannel.class)
+                .handler(new StringEncoder())
+        .connect("127.0.0.1",9966)
+        .sync()
+        .channel()
+        .writeAndFlush("im nigger")
+        .channel()
+        .close()
+        .sync();
+        group.shutdownGracefully();
     }
 }
