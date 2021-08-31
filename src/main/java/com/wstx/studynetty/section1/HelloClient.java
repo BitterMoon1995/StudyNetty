@@ -74,7 +74,6 @@ public class HelloClient {
             channel
                     .writeAndFlush("我是黑人")
 //                    .sync();
-            //在测试方法中要加一个sync或await。不阻塞，发完就return。可设置延迟
                 .await();
         }
 
@@ -91,6 +90,7 @@ public class HelloClient {
         .sync()
         .channel()
         .writeAndFlush("im nigger")
+        .sync()
         .channel()
         .close()
         .sync();

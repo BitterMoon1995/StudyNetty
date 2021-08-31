@@ -10,6 +10,7 @@ public class OutH1 extends ChannelOutboundHandlerAdapter {
     @Override
     public void read(ChannelHandlerContext ctx) throws Exception {
         log.debug("出站处理器 1 号 read");
+        super.read(ctx);
     }
 
     @Override
