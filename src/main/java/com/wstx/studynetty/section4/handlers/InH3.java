@@ -9,8 +9,7 @@ public class InH3 extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         log.debug("---入站处理器 3 号 channelRead---");
-        super.channelRead(ctx,msg);
-
+        ctx.writeAndFlush("sima nigger");
     }
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {

@@ -11,5 +11,6 @@ a channelFuture与closeFuture
 b 三种线程通信容器及对比
 
 section4 Pipeline、Handler
-a pipeline
+a pipeline中inboundHandler及outboundHandler的串联方式及执行顺序
+b 内置测试类
 
