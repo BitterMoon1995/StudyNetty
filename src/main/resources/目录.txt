@@ -6,11 +6,18 @@ a 三大基本操作
 b 改进：双eventLoopGroup、handler指定不同的group
 c EventLoopGroup的优雅关闭
 
-section3 netty异步处理：Future&Promise
+section3 netty异步处理：Future & Promise
 a channelFuture与closeFuture
 b 三种线程通信容器及对比
 
-section4 Pipeline、Handler
+section4 Pipeline中的Handlers
 a pipeline中inboundHandler及outboundHandler的串联方式及执行顺序
 b 内置测试类
+
+section5 byteBuf
+a 初始化、读、写、序列化、回收释放
+b 对零拷贝的实现
+c 实际开发之echo server
+
+section6 粘包问题 packet splicing
 
