@@ -14,6 +14,7 @@ import org.junit.Test;
 public class PSClient {
     @Test
     public void test() throws InterruptedException {
+        NioEventLoopGroup bosses = new NioEventLoopGroup();
         NioEventLoopGroup workers = new NioEventLoopGroup();
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.channel(NioSocketChannel.class);
