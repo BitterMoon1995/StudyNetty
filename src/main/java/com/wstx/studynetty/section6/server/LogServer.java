@@ -60,14 +60,14 @@ public class LogServer {
                                 //length字段之后又有几个字节不属于实际内容(防第二个消息头)？
                                 //不管length，反正总共要剥离头几个字节？
 
-                                //32位的消息头，2位的长度字段，没有第二个消息头，砍掉34个字节（只看实际内容）
-//                                new LengthFieldBasedFrameDecoder
-//                                        (1024,
-//                                                32,
-//                                                2,
-//                                                0,
-//                                                34),
-//                                new StringEncoder(),
+                                //32位的消息头，2位的长度字段，没有第二个消息头，
+                                //一个字符都不砍（消息头、长度字段、实际内容都看）
+                                new LengthFieldBasedFrameDecoder
+                                        (1024,
+                                                32,
+                                                2,
+                                                0,
+                                                0),
                                 new LoggingHandler(LogLevel.DEBUG));
                     }
                 })

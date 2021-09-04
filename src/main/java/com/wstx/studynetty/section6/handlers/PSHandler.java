@@ -25,15 +25,15 @@ public class PSHandler extends ChannelInboundHandlerAdapter {
 //            String saohua = "im a black big dick nigger`";
 
             //LFB解码器法
-//            String head = "type:sync_frame";
+            String head = "type:sync_frame";
             //写入固定32位的消息头，不足的用+号补满
-//            buffer.writeBytes(genHead(head));
+            buffer.writeBytes(genHead(head));
             //写入一个short表示长度，一个short占两个字节。
             buffer.writeShort(saohua.getBytes().length);
 
-//            buffer.writeBytes(saohua.getBytes());
+            buffer.writeBytes(saohua.getBytes());
 
-            ctx.writeAndFlush(saohua);
+            ctx.writeAndFlush(buffer);
         }
     }
 
@@ -61,6 +61,7 @@ public class PSHandler extends ChannelInboundHandlerAdapter {
             for (int i = 0; i < gap; i++) {
                 builder.append("+");
             }
+            System.out.println(builder.toString());
         }
         return builder.toString().getBytes(StandardCharsets.UTF_8);
     }
