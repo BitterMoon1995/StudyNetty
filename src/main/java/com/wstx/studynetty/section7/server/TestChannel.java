@@ -29,13 +29,13 @@ public class TestChannel {
         //解码测试
         ByteBuf buf = ByteBufAllocator.DEFAULT.buffer();
         new MessageCodec().iEncode(null,msg,buf);
+//        channel.writeInbound(buf);
 
-        channel.writeInbound(buf);
-
-        //测不了，抛IllegalReferenceCountException
-//        for (int i = 0; i < 10; i++) {
-//            channel.writeInbound(buf);
-//        }
+        //粘包、半包测试
+        for (int i = 0; i < 10; i++) {
+            buf.retain();
+            channel.writeInbound(buf);
+        }
 
     }
 }
