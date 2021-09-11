@@ -9,7 +9,6 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.concurrent.Future;
 import org.junit.Test;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
@@ -51,7 +50,7 @@ public class EL1 {
 
     //执行IO事件
     @Test
-    public static void test4() {
+    public void test4() {
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.group(new NioEventLoopGroup(2))
                 .channel(NioServerSocketChannel.class)
@@ -81,6 +80,7 @@ public class EL1 {
     }
 
     public static void main(String[] args) {
-        test4();
+        EL1 me = new EL1();
+        me.test4();
     }
 }

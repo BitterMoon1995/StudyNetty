@@ -1,19 +1,15 @@
-package com.wstx.studynetty.section8;
+package com.wstx.studynetty.section8.server;
 
-import com.wstx.studynetty.section7.message.PingMessage;
-import com.wstx.studynetty.section8.handler.TriggerH;
+import com.wstx.studynetty.section8.handler.TriggerHd;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LoggingHandler;
-import io.netty.handler.timeout.IdleState;
-import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.TimeUnit;
 @Slf4j
 class Server {
     public static void main(String[] args) {
@@ -31,7 +27,7 @@ class Server {
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline.addLast(new IdleStateHandler(
                                 5,0,0));
-                        pipeline.addLast(new TriggerH());
+                        pipeline.addLast(new TriggerHd());
                         pipeline.addLast(new LoggingHandler());
                     }
                 })
