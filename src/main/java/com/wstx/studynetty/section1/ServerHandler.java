@@ -34,4 +34,9 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         System.out.println("exceptionCaught");
 //        super.exceptionCaught(ctx, cause);
     }
+
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        System.out.println("O(∩_∩)O哈哈~");
+    }
 }

@@ -16,7 +16,7 @@ public class PSHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         for (int i = 0; i < 10; i++) {
             ByteBuf buffer = ctx.alloc().buffer();
-            String saohua = "im a black big dick nigger";
+            String saohua = "{\"altitudeGnd\":0.0,\"altitudeMsl\":0.0,\"firmware\":0,\"heading\":0.0,\"latitude\":104.26587,\"longitude\":34.56485,\"msgType\":1,\"sequenceNum\":0,\"synCode\":\"01131723\",\"vehicleSn\":\"0X01010006\",\"waypoint\":0}";
 
             //换行符法。Windows与Linux不同
 //            String saohua = "im a black big dick nigger\r\n";
@@ -29,7 +29,7 @@ public class PSHandler extends ChannelInboundHandlerAdapter {
             //写入固定32位的消息头，不足的用+号补满
             buffer.writeBytes(genHead(head));
             //写入一个short表示长度，一个short占两个字节。
-            buffer.writeShort(saohua.getBytes().length);
+            buffer.writeInt(saohua.getBytes().length);
 
             buffer.writeBytes(saohua.getBytes());
 

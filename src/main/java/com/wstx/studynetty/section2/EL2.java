@@ -36,8 +36,8 @@ public class EL2 {
                                 //细分二：耗时长的复杂任务交给第三个或更多个group去处理。
                                 //本例中，会发现workerGroup的handler总能第一时间返回，
                                 //而不会受到dbAccessGroup的handler的SQL延迟的影响
-                                .addLast(workerGroup, new H1())
-                                .addLast(dbAccessGroup, new H2());
+                                .addLast(dbAccessGroup, new H1())
+                                .addLast(workerGroup, new H2());
                     }
                 })
                 .bind(9966);

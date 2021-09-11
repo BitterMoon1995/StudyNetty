@@ -9,10 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 public class H1 extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        log.debug("---handler1 channelRead---");
-//        System.out.println(ctx.channel().eventLoop());
-        //将msg传递给同一pipeline中下一个handler的channelRead方法
-        ctx.fireChannelRead(msg);
+        log.debug("---handler1 channelRead收到msg，开始执行SQL---");
+        Thread.sleep(3000);
+        System.out.println("SQL执行完毕");
+
+       ctx.fireChannelRead(msg);
     }
 
     @Override

@@ -4,13 +4,23 @@ import com.wstx.studynetty.section7.codec.MessageCodec;
 import com.wstx.studynetty.section7.message.LoginRequestMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
+import io.netty.channel.ChannelDuplexHandler;
+import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.embedded.EmbeddedChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 
 public class TestChannel {
     public static void main(String[] args) throws Exception {
         EmbeddedChannel channel = new EmbeddedChannel(
+                new IdleStateHandler(5,0,0),
+                new ChannelDuplexHandler(){
+                    @Override
+                    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+                        System.out.println("啊啊啊啊啊啊啊啊啊啊啊啊");
+                    }
+                },
                 //配合LFB解决粘包、半包问题
                 //initialBytesToStrip必须设为0
 
@@ -21,21 +31,21 @@ public class TestChannel {
                         4,0,0),
                 new LoggingHandler(),
                 new MessageCodec());
-        LoginRequestMessage msg = new LoginRequestMessage("nigger_slave", "123456");
-
-        //编码测试
-//        channel.writeOutbound(msg);
-
-        //解码测试
-        ByteBuf buf = ByteBufAllocator.DEFAULT.buffer();
-        new MessageCodec().iEncode(null,msg,buf);
-//        channel.writeInbound(buf);
-
-        //粘包、半包测试
-        for (int i = 0; i < 10; i++) {
-            buf.retain();
-            channel.writeInbound(buf);
-        }
+//        LoginRequestMessage msg = new LoginRequestMessage("nigger_slave", "123456");
+//
+//        //编码测试
+////        channel.writeOutbound(msg);
+//
+//        //解码测试
+//        ByteBuf buf = ByteBufAllocator.DEFAULT.buffer();
+//        new MessageCodec().iEncode(null,msg,buf);
+////        channel.writeInbound(buf);
+//
+//        //粘包、半包测试
+//        for (int i = 0; i < 10; i++) {
+//            buf.retain();
+//            channel.writeInbound(buf);
+//        }
 
     }
 }

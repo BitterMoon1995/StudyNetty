@@ -39,8 +39,8 @@ public class LogServer {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
-                        ByteBuf diyDelimiter = ByteBufAllocator.DEFAULT.buffer(4);
-                        diyDelimiter.writeBytes("`".getBytes());
+//                        ByteBuf diyDelimiter = ByteBufAllocator.DEFAULT.buffer(4);
+//                        diyDelimiter.writeBytes("`".getBytes());
 
                         ch.pipeline().addLast(
                                 //粘包解决方案一：全部改成短连接，这个不聊了
@@ -65,7 +65,7 @@ public class LogServer {
                                 new LengthFieldBasedFrameDecoder
                                         (1024,
                                                 32,
-                                                2,
+                                                4,
                                                 0,
                                                 0),
                                 new LoggingHandler(LogLevel.DEBUG));
