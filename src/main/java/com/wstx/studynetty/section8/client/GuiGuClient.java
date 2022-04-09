@@ -44,6 +44,7 @@ public class GuiGuClient {
             Thread.sleep(1000);
         }
 
+        Thread.sleep(1000 * 15);
         //实际情况无人机是不会主动关闭连接的，大概
 
         //供参考：

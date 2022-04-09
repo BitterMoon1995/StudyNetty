@@ -81,6 +81,6 @@ public class EL1 {
 
     public static void main(String[] args) {
         EL1 me = new EL1();
-        me.test4();
+        test3();
     }
 }
